@@ -110,18 +110,21 @@ router.get("/filteritembyprice",async(req,res)=>{
     try{
 
         
-        const {startprice,endprice}=req.query;
+        const startprice=req.query.startprice;
+        const endprice=req.query.endprice;
         console.log(req.query)
         
       const filterprice={
-        Price:{$gte:startprice,$lte:endprice}
+        Price:{$gte:parseInt(startprice), $lte:parseInt(endprice)}
        
       }
 
+    
       const product=await mobileShema.find(filterprice)
-       
+     
      console.log("mobile",product)
-     if(product.length>0){
+     if(product){
+        
         return res.status(200).json({"status": 'true', 'message': product})
      }else{
         return res.status(400).json({"status": 'failure',message:"no products available in this price"})
