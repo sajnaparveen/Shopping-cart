@@ -5,7 +5,7 @@ const router = require("express").Router();
 router.post("/createcart", async (req, res) => {
   try {
   const order = await cart.find();
-  console.log("bala",order)
+  console.log("order",order)
   if(order.length === 0){
     const newCart = new cart(req.body);
     const savedCart = await newCart.save();
