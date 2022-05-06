@@ -13,7 +13,7 @@ router.post("/createcart", async (req, res) => {
   }else{
     let ttf =  order[0].products
   let updateOrder =ttf.push(req.body.products);
-
+  console.log("hvhjsx",ttf)
   const jbdsb = await findOneAndUpdate({userUuid:order[0].userUuid},{products:ttf},{new:true}).exec();
   console.log("hvhjsx",jbdsb)
     return res.status(200).json({ 'status': 'success', "message": "Order Updataeds!",result:jbdsb })
@@ -23,7 +23,7 @@ router.post("/createcart", async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-});
+});                      
 
 //DELETE
 router.delete("/deletecart", async (req, res) => {

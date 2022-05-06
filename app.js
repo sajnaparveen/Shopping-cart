@@ -6,7 +6,7 @@ require('dotenv').config();
 const userRouter=require('./routes/user.route')
 const mobileRouter=require('./routes/mobile.route')
 const cartRouter=require('./routes/cart')
-const orderRouter=require('./routes/order')
+
 const port=process.env.port || 7000;
 
 const app=express();
@@ -27,7 +27,7 @@ mongoose.connect(process.env.dburl,{
 app.use('/api/v1/user',userRouter);
 app.use('/api/v2/mobile',mobileRouter);
 app.use('/api/v3/cart',cartRouter)
-app.use('/api/v4/orderitems',orderRouter)
+
 
 app.listen(port, ()=>{
     console.log(`http://127.0.0.1:${port}`)
