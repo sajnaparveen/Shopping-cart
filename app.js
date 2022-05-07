@@ -26,7 +26,8 @@ mongoose.connect(process.env.dburl,{
 
 app.use('/api/v1/user',userRouter);
 app.use('/api/v2/mobile',mobileRouter);
-app.use('/api/v3/cart',cartRouter)
+app.use('/api/v3/cart',cartRouter);
+
 
 
 app.listen(port, ()=>{

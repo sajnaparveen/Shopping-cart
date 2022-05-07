@@ -7,6 +7,7 @@ const CartSchema = new mongoose.Schema(
     userUuid: { type: String, required: true },
     products: [
       {
+        // _id:{type:mongoose.Schema.Types.ObjectId,ref:"product"},
         productUuid: {
           type: String,
         },
@@ -19,6 +20,7 @@ const CartSchema = new mongoose.Schema(
     amount: { type: Number, required: true },
     address: { type: Object, required: true },
     status: { type: String, default: "pending" },
+    totalPrice:{type:Number,required:false},
   },
   { timestamps: true }
 );

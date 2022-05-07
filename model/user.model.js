@@ -10,7 +10,11 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     email: { type: String, required: true, trim: true, unique: true },
     mobileNumber: { type: String, required: true },
-    role: { type: String, enum: ['admin', 'user'], required: true, default: "user" }
+    role: { type: String, enum: ['admin', 'user'], required: true, default: "user" },
+    verifyed: { type: Boolean, required: false, default: false },
+    lastedVisited: {type: String, required: false},
+    loginStatus:{type: Boolean, required: false, default: false},
+    firstLoginStatus:{type: Boolean, required: false, default: false}
 }, {
     timestamps: true
 })

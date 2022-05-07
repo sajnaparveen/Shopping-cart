@@ -36,13 +36,43 @@ router.delete("/deletecart", async (req, res) => {
   }
 });
 
-//GET ALL
-router.get("/getallcart", async (req, res) => {
+// router.post("/placeorder",async (req, res) => {
+//   await cart.findById(req.body._id)
+//     .then(async cart => {
+//     // await cart.findOneAndDelete({ _id: req.params._id }).exec();
+//       if (!cart) {
+// return res.status(404).json({message: "Product not found"});
+//       }
+//       const order = new cart({
+//         _id: req.body._id
+//       });
+//       return cart.save();
+//     })
+//     .then(result => {
+//       console.log(result);
+//       res.status(200).json({message: "Order placed",
+//         request: {
+//           type: "GET",
+//           url: "http://localhost:7000/cart/" + result
+//         }
+//       });
+//     })
+//     .catch(err => {
+//       console.log(err);
+//       res.status(500).json({error: err});
+//     });
+// });
+
+
+//DELETE CART
+router.delete("/deletecart", async (req, res) => {
     try {
-      const carts = await cart.find();
-      res.status(200).json({'status': 'success',"result":carts});
-    } catch (err) {
-      res.status(500).json(err);
+        console.log(req.params._id)
+        await cart.findOneAndDelete({ uuid: req.params._id }).exec();
+        return res.status(200).json({ 'status': 'success', message: "Order has been deleted" });
+    } catch (error) {
+        console.log(error.message);
+        return res.status(400).json({ "status": 'failure', 'message': error.message })
     }
-  });  
+})
 module.exports = router;
