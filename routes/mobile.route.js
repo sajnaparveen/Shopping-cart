@@ -2,9 +2,9 @@ const router = require('express').Router();
 const moment = require('moment');
 const userschema = require('../model/user.model');
 const mobileShema = require('../model/mobile.model');
-const { authVerify, isAdmin } = require("../middleware/auth");
+const { authVerify, isAdmin,isUser } = require("../middleware/auth");
 const { response } = require('express');
-
+const categorySchema=require('../model/category.model')
 
 router.post('/add', isAdmin, async (req, res) => {
     try {
@@ -16,6 +16,16 @@ router.post('/add', isAdmin, async (req, res) => {
         return res.status(400).json({ "status": 'failure', 'message': error.message })
     }
 });
+router.post('/addCategory', isAdmin, async(req,res)=>{
+    try{
+        const data = new category(req.body);
+        const result = await data.save()
+        return res.status(200).json({status: "success", message: 'category added successfully', result: result})
+    }catch(error){
+        console.log(error.message);
+        return res.status(400).json({"status": 'failure', 'message': error.message})
+    }
+})
 router.put("/update", isAdmin, async (req, res) => {
     try {
         let condition = { "uuid": req.body.uuid }
