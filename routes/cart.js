@@ -1,6 +1,8 @@
 const cart = require("../model/cart");
 const router = require("express").Router();
 const { authVerify, isAdmin, isUser } = require("../middleware/auth");
+const { mailsending } = require("../middleware/mailer");
+const userSchema = require("../model/user.model");
 //ADD-TO-CART
 router.post("/addtocart", async (req, res) => {
   try {
@@ -56,9 +58,24 @@ router.put("/update", async (req, res) => {
 //ORDERPLACED
 router.get('/orderplaced',isUser,async(req,res)=>{
   try{
+  //   const email = req.body.email;
+  //  let emailid = await userSchema.findOne({ email:email }).exec();
+
+  //   const mailData = {
+  //     to: email,
+  //     subject: "ORDER CONFIRMATION",
+  //     text: "order placed successfully",
+  //     details: {
+  //       date: new Date(),
+  //     //  product:req.body.products.product,
+  //       product :req.body.price
+  //     }
+  //   };
+ 
       const _id = req.body._id
      const data = await cart.find({_id:_id}).exec()
-          const address = data.address
+         
+       //   let mailRes = mailsending(mailData);
       const takeOrder = await cart.findOneAndUpdate({_id:_id},{status:'order placed '},{new:true}).exec()
         console.log("takeOrder",takeOrder)
           res.json({status:'success',message:'your order successfully',result:takeOrder}) 
@@ -80,3 +97,5 @@ router.get('/cancel',isUser,async(req,res)=>{
 }
 })
 module.exports = router;
+
+
