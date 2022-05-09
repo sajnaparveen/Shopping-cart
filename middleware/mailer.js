@@ -21,7 +21,6 @@ const data=await ejs.renderFile(join(__dirname,'../templates/',mailData.fileName
     subject: mailData.subject, 
     text: mailData.text, 
     html: data, 
-
   });
 
   console.log("Message sent:", info.messageId);
