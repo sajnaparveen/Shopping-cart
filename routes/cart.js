@@ -100,10 +100,10 @@ const userSchema = require("../model/user.model");
 router.post("/addtocart", async (req, res) => {
   const { productId, quantity, name, price } = req.body;
 
-  const userId = req.body.userId; //TODO: the logged in user id
+  const userUuid = req.body.userUuid; //TODO: the logged in user id
 
   try {
-    let cart = await Cart.findOne({userId:userId });
+    let cart = await Cart.findOne({userUuid: userUuid });
 
     if (cart) {
       //cart exists for user
@@ -123,7 +123,7 @@ router.post("/addtocart", async (req, res) => {
     } else {
       //no cart for user, create new cart
       const newCart = await Cart.create({
-        userId: userId,
+        userUuid:userUuid,
         products: [{ productId, quantity, name, price }]
       });
 
@@ -131,7 +131,7 @@ router.post("/addtocart", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.status(500).send("Something went wrong");
+    res.status(500).json(err);
   }
 });
 module.exports = router;

@@ -26,12 +26,10 @@ const mongoose = require("mongoose");
 // );
 const CartSchema = new mongoose.Schema(
   {
-    userId: {
-      type: String, required: true
-    },
+     userUuid: { type: String, required: true },
     products: [
       {
-        productId: Number,
+        productId: String,
         quantity: Number,
         name: String,
         price: Number
@@ -48,5 +46,4 @@ const CartSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
 module.exports = mongoose.model("Cart", CartSchema);
