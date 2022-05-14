@@ -6,6 +6,14 @@ const { authVerify, isAdmin,isUser } = require("../middleware/auth");
 const { response } = require('express');
 const categorySchema=require('../model/category.model')
 
+const multer = require('multer');
+const xlsx = require('xlsx');
+
+const store = require("../middleware/multer");
+const path =require('path');
+const upload = multer({storage : store.storage});
+
+
 router.post('/add', isAdmin, async (req, res) => {
     try {
         const data = new mobileShema(req.body);
@@ -143,6 +151,38 @@ router.get("/filteritembyprice",async(req,res)=>{
     }catch(error){
         console.log(error.message);
         return res.status(400).json({"status": 'failure', 'message': error.message})
+    }
+})
+
+// read bulkdata and upload bulk data in db
+router.post("/bulk-upload",upload.single('file'), async(req,res)=>{
+    try {
+        let path = './uploads/'+ req.file.filename;
+        console.log("path=", path)
+        let datas = xlsx.readFile(path);
+        let sheetname = datas.SheetNames
+        console.log("sheetname=", sheetname)
+        console.log("_".repeat(100))
+        let resultdata = xlsx.utils.sheet_to_json(datas.Sheets[sheetname[0]]);
+        //console.log(resultdata)
+        console.log("".repeat(100))
+        for(const x of resultdata){
+            //console.log(x)
+            console.log("".repeat(100))
+            const finddata = await mobileShema.findOne({productName:x.productName})
+            if(finddata){
+                updatedata = await mobileShema.findOneAndUpdate({productName:x.productName},{quantity:finddata.quantity+x.quantity},{new:true})
+                //console.log("product already exist")
+            }else{
+            const data = new mobileShema(x);
+            const result = await data.save();
+            console.log(result)
+        }
+         }
+        return res.status(200).json({"status":"success","message":" upload process completed"})
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({status: "failure", message: error.message}) 
     }
 })
 

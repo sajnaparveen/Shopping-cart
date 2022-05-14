@@ -15,6 +15,7 @@ router.post('/signupPage', async (req, res) => {
         const password = req.body.password;
         const email = req.body.email;
         const mobileNumber = req.body.mobileNumber;
+        
         const path="../files/snow.jpeg"
         const mailData = {
           to: email,

@@ -29,7 +29,7 @@ const CartSchema = new mongoose.Schema(
      userUuid: { type: String, required: true },
     products: [
       {
-        productId: String,
+        productUuid: String,
         quantity: Number,
         name: String,
         price: Number
@@ -42,8 +42,10 @@ const CartSchema = new mongoose.Schema(
     modifiedOn: {
       type: Date,
       default: Date.now
-    }
+    },
+    total : {type : Number, required: false, default :0 }
   },
+
   { timestamps: true }
 );
 module.exports = mongoose.model("Cart", CartSchema);

@@ -8,7 +8,7 @@ const mobileShema=new mongoose.Schema({
     uuid: {type: String, required:false}, 
     productName:{type:String,required:true},
     Description:{type:String,required:true},
-    Price:{type:String,required:true},
+    Price:{type:Number,required:true},
     quantity:{type:String,required:true},
     userUuid:{type:String,required:true}
 },{
