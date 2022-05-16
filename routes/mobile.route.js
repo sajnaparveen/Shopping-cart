@@ -164,21 +164,33 @@ router.post("/bulk-upload",upload.single('file'), async(req,res)=>{
         console.log("sheetname=", sheetname)
         console.log("_".repeat(100))
         let resultdata = xlsx.utils.sheet_to_json(datas.Sheets[sheetname[0]]);
-        
+        let resultdataLength=resultdata.length
         console.log("".repeat(100))
-        for(const x of resultdata){
+        // for(let x of resultdata){
          
-            console.log("".repeat(100))
-            const finddata = await mobileShema.findOne({productName:x.productName})
-            if(finddata){
-                updatedata = await mobileShema.findOneAndUpdate({productName:x.productName},{quantity:finddata.quantity+x.quantity},{new:true})
+        //     console.log("".repeat(100))
+        //     const finddata = await mobileShema.findOne({productName:x.productName})
+        //     if(finddata){
+        //         updatedata = await mobileShema.findOneAndUpdate({productName:x.productName},
+        //             {quantity:finddata.quantity+x.quantity},{new:true})
                
-            }else{
-            const data = new mobileShema(x);
-            const result = await data.save();
-            console.log(result)
-        }
-         }
+        //     }else{
+        //     const data = new mobileShema(x);
+        //     const result = await data.save();
+        //     console.log(result)
+        // }
+        //  }
+         for (let i = 0; i < resultdataLength; i++) {
+       const findData=await mobileShema.findOne({productName:i.productName})
+       if(findData){
+           updateData=await mobileShema.findByIdAndUpdate({productName:i.productName},
+           {quantity:findData.quantity+i.quantity},{new:true})
+       }else{
+        const data = new mobileShema(i);
+        const result = await data.save();
+        console.log(result)
+    }
+          }
         return res.status(200).json({"status":"success","message":" upload process completed"})
     } catch (error) {
         console.log(error);
