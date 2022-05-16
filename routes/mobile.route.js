@@ -24,6 +24,21 @@ router.post('/add', isAdmin, async (req, res) => {
         return res.status(400).json({ "status": 'failure', 'message': error.message })
     }
 });
+// get all product 
+router.get("/get", async(req,res)=>{
+    try{
+        const productDetails = await mobileShema.find().exec();
+        if(productDetails.length > 0){
+            return res.status(200).json({'status': 'success', message: "Product details fetched successfully", 'result': productDetails});
+        }else{
+            return res.status(404).json({'status': 'failure', message: "No Product details available"})
+        }
+    }catch(error){
+        console.log(error.message);
+        return res.status(400).json({"status": 'failure', 'message': error.message})
+    }
+});
+
 router.post('/addCategory', isAdmin, async(req,res)=>{
     try{
         const data = new category(req.body);
@@ -164,18 +179,19 @@ router.post("/bulk-upload",upload.single('file'), async(req,res)=>{
         console.log("sheetname=", sheetname)
         console.log("_".repeat(100))
         let resultdata = xlsx.utils.sheet_to_json(datas.Sheets[sheetname[0]]);
-        let resultdataLength=resultdata.length
-        console.log("".repeat(100))
-       
-         for (let i = 0; i < resultdataLength; i++) {
+        console.log(resultdata)
+        console.log("xghh".repeat(100))
+      
+         for (let i = 0; i < resultdata; i++) {
+            console.log("i =",i)
        const findData=await mobileShema.findOne({productName:i.productName})
        if(findData){
-           updateData=await mobileShema.findByIdAndUpdate({productName:i.productName},
-           {quantity:findData.quantity+i.quantity},{new:true})
+           updateData=await mobileShema.findByIdAndUpdate({productName:i.productName},{quantity:findData.quantity+i.quantity},{new:true})
+           console.log("product already exist")
        }else{
         const data = new mobileShema(i);
         const result = await data.save();
-        console.log(result)
+        console.log("result",result)
     }
           }
         return res.status(200).json({"status":"success","message":" upload process completed"})
