@@ -15,7 +15,7 @@ router.post('/signupPage', async (req, res) => {
         const password = req.body.password;
         const email = req.body.email;
         const mobileNumber = req.body.mobileNumber;
-        
+        const role=req.body.role;
         const path="../files/snow.jpeg"
         const mailData = {
           to: email,
@@ -28,11 +28,12 @@ router.post('/signupPage', async (req, res) => {
              link: `http://localhost:${port}/api/v1/user/email-verify?email=${email}`
           }
         };
-        if (firstName && lastName && userName && password && email && mobileNumber) {
+        if (firstName && lastName && userName && password && email && mobileNumber&& role) {
 
             let userdetails = await userSchema.findOne({ userName: userName }).exec();
             let emailid = await userSchema.findOne({ email: email }).exec();
             let phoneno = await userSchema.findOne({ mobileNumber: mobileNumber }).exec();
+          
             console.log("username", userdetails);
             console.log("email", emailid);
             console.log("mobileno", phoneno);
