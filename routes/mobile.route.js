@@ -166,20 +166,7 @@ router.post("/bulk-upload",upload.single('file'), async(req,res)=>{
         let resultdata = xlsx.utils.sheet_to_json(datas.Sheets[sheetname[0]]);
         let resultdataLength=resultdata.length
         console.log("".repeat(100))
-        // for(let x of resultdata){
-         
-        //     console.log("".repeat(100))
-        //     const finddata = await mobileShema.findOne({productName:x.productName})
-        //     if(finddata){
-        //         updatedata = await mobileShema.findOneAndUpdate({productName:x.productName},
-        //             {quantity:finddata.quantity+x.quantity},{new:true})
-               
-        //     }else{
-        //     const data = new mobileShema(x);
-        //     const result = await data.save();
-        //     console.log(result)
-        // }
-        //  }
+       
          for (let i = 0; i < resultdataLength; i++) {
        const findData=await mobileShema.findOne({productName:i.productName})
        if(findData){
