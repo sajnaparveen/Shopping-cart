@@ -175,13 +175,13 @@ router.post("/bulk-upload",upload.single('file'), async(req,res)=>{
         let path = './uploads/'+ req.file.filename;
         console.log("path=", path)
         let datas = xlsx.readFile(path);
+        console.log("data",datas)
         let sheetname = datas.SheetNames
         console.log("sheetname=", sheetname)
         console.log("_".repeat(100))
         let resultdata = xlsx.utils.sheet_to_json(datas.Sheets[sheetname[0]]);
         console.log(resultdata)
-        console.log("xghh".repeat(100))
-      
+        
          for (let i = 0; i < resultdata; i++) {
             console.log("i =",i)
        const findData=await mobileShema.findOne({productName:i.productName})
