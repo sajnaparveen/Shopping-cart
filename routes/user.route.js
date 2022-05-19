@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const userSchema = require("../model/user.model");
 const { userJoiSchema } = require('../validation/user.joischema');
 const port = process.env.port || 8000;
-
+const axios=require('axios');
 const { mailsending } = require("../middleware/mailer");
 
 router.post('/signupPage', async (req, res) => {
@@ -15,8 +15,9 @@ router.post('/signupPage', async (req, res) => {
         const password = req.body.password;
         const email = req.body.email;
         const mobileNumber = req.body.mobileNumber;
-        const role=req.body.role;
-        const path="../files/snow.jpeg"
+        
+       console.log( req.body)
+
         const mailData = {
           to: email,
           subject: "Verify Email",
@@ -28,7 +29,8 @@ router.post('/signupPage', async (req, res) => {
              link: `http://localhost:${port}/api/v1/user/email-verify?email=${email}`
           }
         };
-        if (firstName && lastName && userName && password && email && mobileNumber&& role) {
+     
+        if (firstName && lastName && userName && password && email && mobileNumber) {
 
             let userdetails = await userSchema.findOne({ userName: userName }).exec();
             let emailid = await userSchema.findOne({ email: email }).exec();
@@ -63,11 +65,14 @@ router.post('/signupPage', async (req, res) => {
                 console.log(user.password);
                 let result = await user.save();
                 console.log("result", result);
-                return res.status(200).json({
-                    status: "success",
-                    message: "user details added  successfully",
-                    data: result
-                });
+                // return res.status(200).json({
+                //     status: "success",
+                //     message: "user details added  successfully",
+                //     data: result
+                // });
+                res.send("registered account!");
+        res.redirect("/login");
+              
             }
           }
         } else {

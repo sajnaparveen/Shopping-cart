@@ -169,36 +169,67 @@ router.get("/filteritembyprice",async(req,res)=>{
     }
 })
 
-// read bulkdata and upload bulk data in db
-router.post("/bulk-upload",upload.single('file'), async(req,res)=>{
+// // read bulkdata and upload bulk data in db
+// router.post("/bulk-upload",upload.single('file'), async(req,res)=>{
+//     try {
+//         let path = './uploads/'+ req.file.filename;
+//         console.log("path=", path)
+//         let datas = xlsx.readFile(path);
+//         console.log("data",datas)
+//         let sheetname = datas.SheetNames
+//         console.log("sheetname=", sheetname)
+//         console.log("_".repeat(100))
+//         let resultdata = xlsx.utils.sheet_to_json(datas.Sheets[sheetname[0]]);
+//         console.log(resultdata)
+        
+//          for (let i = 0; i < resultdata; i++) {
+//             console.log("i =",i)
+//        const findData=await mobileShema.findOne({productName:i.productName})
+//        if(findData){
+//            updateData=await mobileShema.findOneAndUpdate({productName:i.productName},{quantity:findData.quantity+i.quantity},{new:true})
+//            console.log("product already exist")
+//        }else{
+//         const data = new mobileShema(i);
+//         const result = await data.save();
+//         console.log("result",result)
+//     }
+//           }
+//         return res.status(200).json({"status":"success","message":" upload process completed"})
+//     } catch (error) {
+//         console.log(error);
+//         return res.status(500).json({status: "failure", message: error.message}) 
+//     }
+// })
+        
+router.post("/bulk-upload",upload.array('file',4), async(req,res)=>{
     try {
-        let path = './uploads/'+ req.file.filename;
+        console.log("request",req.files)
+        let path = './uploads/'+ req.files[1].filename;
         console.log("path=", path)
         let datas = xlsx.readFile(path);
-        console.log("data",datas)
         let sheetname = datas.SheetNames
         console.log("sheetname=", sheetname)
         console.log("_".repeat(100))
         let resultdata = xlsx.utils.sheet_to_json(datas.Sheets[sheetname[0]]);
-        console.log(resultdata)
-        
-         for (let i = 0; i < resultdata; i++) {
-            console.log("i =",i)
-       const findData=await mobileShema.findOne({productName:i.productName})
-       if(findData){
-           updateData=await mobileShema.findByIdAndUpdate({productName:i.productName},{quantity:findData.quantity+i.quantity},{new:true})
-           console.log("product already exist")
-       }else{
-        const data = new mobileShema(i);
-        const result = await data.save();
-        console.log("result",result)
-    }
-          }
+        //console.log(resultdata)
+        console.log("".repeat(100))
+        for(let x of resultdata){
+            //console.log(x)
+            console.log("".repeat(100))
+            const finddata = await mobileShema.findOne({productName:x.productName})
+            if(finddata){
+                updatedata = await mobileShema.findOneAndUpdate({productName:x.productName},{quantity:finddata.quantity+x.quantity},{new:true})
+                //console.log("product already exist")
+            }else{
+            const data = new mobileShema(x);
+            const result = await data.save();
+            console.log(result)
+        }
+         }
         return res.status(200).json({"status":"success","message":" upload process completed"})
     } catch (error) {
         console.log(error);
         return res.status(500).json({status: "failure", message: error.message}) 
     }
 })
-
 module.exports = router;

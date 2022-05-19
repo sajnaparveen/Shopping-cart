@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-image: url('https://images.ctfassets.net/rxqefefl3t5b/6I2vL9f0IVsDQ8qFgdrxH7/7660c4bab3116a4a04025d5c4802efa5/Virgin-Red-online-shopping-offers.jpg'); 
+background-size: cover; 
+
+}
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  width:240px;
+  height:180px;
+
+}
+.register{
+padding-left:65%;
+padding-top: 10%;
+}
+</style>
+</head>
+<body>
+<div class="register">
+    
+    <form action="/api/v1/user/loginpage" method="POST">
+    
+            <fieldset class="flex-container"> 
+         <legend>Shopping</legend> 
+          
+       <input type="text" placeholder="userName" name="userName"><br>
+         <input type="test" placeholder="password" name="password">
+         <br>
+         <input type="submit" name="Login">
+      <br>
+      <div class="login-now">Already have an account?
+        <a href="/" >SignUp</a>
+        </div>
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>

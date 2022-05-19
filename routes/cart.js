@@ -1,4 +1,4 @@
-const Cart = require("../model/cart");
+const cart = require("../model/cart");
 const router = require("express").Router();
 const { authVerify, isAdmin, isUser } = require("../middleware/auth");
 const { mailsending } = require("../middleware/mailer");
