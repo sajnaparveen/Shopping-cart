@@ -70,8 +70,8 @@ router.post('/signupPage', async (req, res) => {
                 //     message: "user details added  successfully",
                 //     data: result
                 // });
-                res.send("registered account!");
-        res.redirect("/login");
+                res.send("registration successful!");
+        // res.redirect("/login");
               
             }
           }

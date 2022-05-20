@@ -17,14 +17,31 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.json())
 app.set("view engine","ejs") 
-app.get("/",(req,res)=>{
+app.get("/signup",(req,res)=>{
 
     res.render("signup.ejs")
+
+})
+app.get("/test",(req,res)=>{
+
+    res.render("test.ejs")
 
 })
 app.get("/login",(req,res)=>{
     res.render("loginpage.ejs")
 })
+app.get("/",(req,res)=>{
+    res.render("home.ejs")
+})
+// axios.get(`http://localhost:7000/api/v1/user/signupPage`).then(res=>{
+
+//     console.log(res.data)
+// }).catch(error=>{
+//     console.log(error)
+// })
+// home=()=>{
+
+// }
 
 mongoose.connect(process.env.dburl,{
     useNewUrlParser: true,

@@ -12,7 +12,8 @@ background-size: cover;
   flex-direction: column;
   width:240px;
   height:310px;
-
+  
+  
 }
 .register{
 padding-left:65%;
@@ -23,9 +24,48 @@ padding-top: 10%;
 .login-now{
  padding-top:10px;
 }
+.menu{
+    width: 400px;
+    float: left;
+    height: 70px;
+    padding-left:300px;
+}
+ul{
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul li{
+    list-style: none;
+    margin-left: 62px;
+    margin-top: 27px;
+    font-size: 20px;
+}
+
+ul li a{
+    text-decoration: none;
+    color: #fff;
+    font-family: Arial;
+    font-weight: bold;
+    transition: 0.4s ease-in-out;
+}
+ul li a:hover{
+    color: #ff0033c7;
+}
 </style>
 </head>
 <body>
+  <div class="menu">
+    <ul>
+        <li><a href="/">GOBack</a></li>
+        <li><a href="#">ABOUT</a></li>
+        <li><a href="#">PRODUCTS</a></li>
+        <li><a href="#">CATEGORY</a></li>
+        <li><a href="#">CONTACT</a></li>
+    </ul>
+</div>
 <div class="register">
  
 
@@ -36,7 +76,7 @@ padding-top: 10%;
           
        
             
-         <input type="text" placeholder="FirstName" id="firstname1" name="firstName"><br>
+         <input type="text" placeholder="FirstName"  name="firstName"><br>
         <input type="text" placeholder="lastName"name="lastName"><br>
        <input type="text" placeholder="userName" name="userName"><br>
         <input type="text" placeholder="email" name="email"><br>
@@ -44,7 +84,7 @@ padding-top: 10%;
        
          <input type="test" placeholder="password" name="password">
          <br>
-         <input class="submit" type="submit" name="SignUp">
+         <input class="submit" type="submit" >
          <div class="login-now">Already have an account?
           <a href="/login" >Login now</a>
           </div>
