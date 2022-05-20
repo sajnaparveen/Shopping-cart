@@ -42,6 +42,7 @@ app.get("/",(req,res)=>{
 // home=()=>{
 
 // }
+//}
 
 mongoose.connect(process.env.dburl,{
     useNewUrlParser: true,
