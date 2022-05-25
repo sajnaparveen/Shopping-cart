@@ -1,84 +1,427 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<style>
-body {
-  background-image: url('https://images.ctfassets.net/rxqefefl3t5b/6I2vL9f0IVsDQ8qFgdrxH7/7660c4bab3116a4a04025d5c4802efa5/Virgin-Red-online-shopping-offers.jpg'); 
-background-size: cover; 
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/home.css">
+   <title>Clothing - Best Apparels Online Store</title>
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'roboto',sans-serif;
 }
-.menu{
-    width: 400px;
-    float: left;
-    height: 70px;
-    padding-left:100px;
-    margin-top: 2px;
+.navbar{
+position: sticky;
+top: 0;
+left: 0;
+width: 100%;
+
+background:#f5f5f5;
+z-index: 9;
 }
-ul{
-    float: left;
+.nav{
+    padding: 10px 10vw;
+    display: flex;
+    justify-content: space-between;
+}
+.brand-logo{
+    height: 60px;
+}
+.nav-items{
+    display: flex;
+    align-items: center;
+}
+.search{
+    width: 500px;
+    display: flex;
+}
+.search-box{
+    width: 80%;
+    height: 40px;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border: 1px solid #d1d1d1;
+    text-transform: capitalize;
+    background: none;
+    color: #a9a9a9;
+    outline: none;
+}
+.search-btn{
+    width: 20%;
+    height: 40px;
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: #383838;
+   color: #fff;
+    text-transform: capitalize;
+    font-size: 15px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.search-box::placeholder{
+    color: #a9a9a9;
+}
+.nav-items a{
+    margin-left: 20px;
+}
+.nav-items a img{
+    width: 30px;
+}
+.links-container{
+    width: 100%;
+    display:flex;
+    padding:10px 10vw;
+    justify-content: center;
+    list-style: none;
+    border-top: 1px solid #d1d1d1;
+}
+.link{
+text-transform: capitalize;
+padding: 0 10px;
+margin: 0 5px;
+text-decoration:none;
+color: #383838;
+opacity: 0.5;
+transition: .5s;
+}
+.link:hover{
+    opacity: 1  ;
+}
+.hero-section{
+    width: 100%;
+    height: calc(100vh - 120px);
+    background-image: url('header.png');
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+.hero-section .logo{
+    height: 150px;
+display: block;
+margin: auto;
+}
+.hero-section .sub-heading{
+    margin-top: 10px;
+    text-align: center;
+    color: #fff;
+    text-transform: capitalize;
+    font-size: 35px;
+    font-weight: 300;
+}
+.product{
+    position: relative;
+    overflow: hidden;
+    padding: 20px 0;
+}
+.product-category{
+    padding: 0 10vw;
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 40px;
+}
+.product-container{
+    padding: 0 10vw;
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+}
+.product-container::-webkit-scrollbar{
+    display: none;
+}
+.product-card{
+    flex: 0 0 auto;
+    width: 250px;
+    height: 450px;
+    margin-right: 40px;
+}
+.product-image{
+    position: relative;
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+}
+.product-thumb{
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+}
+.discount-tag{
+    position: absolute;
+    background: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    color: #ff7d7d;
+    right: 10px;
+    top: 10px;
+    text-transform: capitalize;
+}
+.card-btn{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    width: 90%;
+    text-transform: capitalize;
+    border: none;
+    outline: none;
+    background: #fff;
+    border-radius: 5px;
+    transition: 0.5s;
+    cursor: pointer;
+    opacity: 0;
+}
 
-ul li{
-    list-style: none;
-    margin-left: 62px;
-    margin-top: 27px;
+.product-card:hover .card-btn{
+    opacity: 1;
+}
+
+.card-btn:hover{ 
+    background: #efefef;
+}
+.product-info{
+    width: 100%;
+    height: 100px;
+    padding-top: 10px;
+}
+.product-brand{
+    text-transform: uppercase;
+}
+.product-short-des{
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    opacity: 0.5;
+    text-transform: capitalize;
+    margin: 5px 0;
+}
+.price{
+    font-weight: 900;
     font-size: 20px;
 }
-
-ul li a{
-    text-decoration: none;
-    color: #fff;
-    font-family: Arial;
-    font-weight: bold;
-    transition: 0.4s ease-in-out;
+.actual-price{
+    margin-left: 20px;
+    opacity: 0.5;
+    text-decoration: line-through;
 }
-ul li a:hover{
-    color: #ff0033c7;
+.pre-btn, .nxt-btn{
+    border: none;
+    width: 10vw;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0% , #fff 100%);
+    cursor: pointer;
+    z-index: 8;
 }
-.icon{
-    width: 200px;
-    float: left;
-    height: 70px;
-    padding-top: 20px;
+.pre-btn{
+    left: 0;
+    transform: rotate(180deg);
 }
-
-.logo{
-    color: #ff0033c7;
-  
-    font-size: 35px;
-    font-family: Arial;
-    padding-left: 20px;
-    float: left;
-    padding-top: 10px;
-    margin-top: 5px
+.nxt-btn{
+    right: 0;
 }
-.cart{
-   padding-top:40px;
-   padding-left:980px;
+.pre-btn img, .nxt-btn img{
+    opacity: 0.2;
 }
-
-</style>
+.pre-btn:hover img, .nxt-btn:hover img{
+    opacity: 1;
+}
+.collection-container{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 10px;
+}
+.collection{
+    position: relative;
+}
+.collection img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.collection p{
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translateX(-50%, -50%);
+   text-align: center;
+   color: #fff;
+   font-size: 50px;
+   text-transform: capitalize;
+}
+.collection:nth-child(3){
+    grid-column: span 2;
+    margin-bottom: 10px;
+}
+    </style>
 </head>
-<body>
-    <!-- <div class="icon">
-        <h2 class="logo">MobileLand</h2>
-    </div> -->
-<div class="menu">
 
-  <div class="menu">
-    <ul>
-        <li><a href="/signup">HOME</a></li>
-        <li><a href="#">ABOUT</a></li>
-        <li><a href="#">PRODUCTS</a></li>
-        <li><a href="#">CATEGORY</a></li>
-        <li><a href="#">CONTACT</a></li>
-    </ul>
+<body>
+    
+<nav class="navbar">
+    <div class="nav">
+        <img src="dark-logo.png" class="brand-logo" alt="">
+        <div class="nav-items">
+        <div class="search">
+               <input type="text" class="search-box" placeholder="search products and categorys">
+               <button class="search-btn">search</button>
+        </div>
+        <a href="/signup"><img src="user.png" alt=""></a>
+        <a href="#"><img src="cart.png" alt=""></a>
+    
+    </div>
+        </div>
+        <ul class="links-container">
+          <li class="link-item"><a href="#" class="link">home</a></li>
+          <li class="link-item"><a href="#" class="link">women</a></li>
+          <li class="link-item"><a href="#" class="link">men</a></li>
+          <li class="link-item"><a href="#" class="link">kids</a></li>
+          <li class="link-item"><a href="#" class="link">accessories</a></li>
+        </ul>
+</nav>
+
+<header class="hero-section">
+    <div class="content">
+  
+        <img src="light-logo.png" class="logo" alt="">
+        <p class="sub-heading">best fashion collection of all time</p>
+
+    </div>
+</header>
+<section class="product">
+    <h2 class="product-category">best selling</h2>
+    <button class="pre-btn"><img src="arrow.png" alt=""></button>
+    <button class="nxt-btn"><img src="arrow.png" alt=""></button>
+    <div class="product-container">
+<% for(let i=0;i<ary.length;i++) { %>
+
+        <div class="product-card">
+            <div class="product-image">
+                <span class="discount-tag"><%=ary[i].off %> off</span>
+                <img src=<%=ary[i].img %> class="product-thumb" alt="">
+                <button class="card-btn">add to whislist</button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand"><%=ary[i].name %></h2>
+                <p class="product-short-des"><%=ary[i].desc %></p>
+            <span class="price">Rs.5 </span>
+            <span class="actual-price">Rs.<%=ary[i].price %></span>
+            </div>
+        </div>
+<% } %> 
+        <!-- <div class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">50% off</span>
+                <img src="card2.png" class="product-thumb" alt="">
+                <button class="card-btn">add to whislist</button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand">Anouk</h2>
+                <p class="product-short-des">Women Navy Blue & Beige Printed Kurta with Palazzos</p>
+            <span class="price">Rs.300</span>
+            <span class="actual-price">Rs.600</span>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">50% off</span>
+                <img src="card3.png" class="product-thumb" alt="">
+                <button class="card-btn">add to whislist</button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand">Anouk</h2>
+                <p class="product-short-des">Women Blue Ethnic Motifs Printed Regular Pure Cotton Kurta with Palazzos </p>
+            <span class="price">Rs.500</span>
+            <span class="actual-price">Rs.1000</span>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">50% off</span>
+                <img src="card4.png" class="product-thumb" alt="">
+                <button class="card-btn">add to whislist</button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand">Anouk</h2>
+                <p class="product-short-des">Women Pink Ethnic Motifs Printed Regular Pure Cotton Kurta with Trousers</p>
+            <span class="price">Rs.400</span>
+            <span class="actual-price">Rs.800</span>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">50% off</span>
+                <img src="card5.png" class="product-thumb" alt="">
+                <button class="card-btn">add to whislist</button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand">Anouk</h2>
+                <p class="product-short-des">Women Navy Blue & Beige Printed Kurta with Palazzos</p>
+            <span class="price">Rs.300</span>
+            <span class="actual-price">Rs.600</span>
+            </div>
+    </div>
+
+    <div class="product-card">
+        <div class="product-image">
+            <span class="discount-tag">50% off</span>
+            <img src="card6.png" class="product-thumb" alt="">
+            <button class="card-btn">add to whislist</button>
+        </div>
+        <div class="product-info">
+            <h2 class="product-brand">Anouk</h2>
+            <p class="product-short-des">Women Navy Blue & Beige Printed Kurta with Palazzos</p>
+        <span class="price">Rs.300</span>
+        <span class="actual-price">Rs.600</span>
+        </div>
 </div>
 
-<div class=cart>
-    <img src="https://cdn-icons-png.flaticon.com/128/3081/3081559.png"  width="50" height="33">
+<div class="product-card">
+    <div class="product-image">
+        <span class="discount-tag">50% off</span>
+        <img src="card07.png" class="product-thumb" alt="">
+        <button class="card-btn">add to whislist</button>
     </div>
+    <div class="product-info">
+        <h2 class="product-brand">Anouk</h2>
+        <p class="product-short-des">Women Navy Blue & Beige Printed Kurta with Palazzos</p>
+    <span class="price">Rs.300</span>
+    <span class="actual-price">Rs.600</span>
+    </div>
+</div> -->
+    </div>
+</section>
+
+<!-- collection -->
+<section class="collection-container">
+    <a href="#" class="collection">
+        <img src="women-collection.png" alt="">
+        <p class="collection-title">women<br>apparels</p>
+    </a>
+    <a href="#" class="collection">
+        <img src="men-collection.png" alt="">
+        <p class="collection-title">men<br>apparels</p>
+    </a>
+    <a href="#" class="collection">
+        <img src="accessories-collection.png" alt="">
+        <p class="collection-title">accessories</p>
+    </a>
+    </section>
 </body>
+
 </html>

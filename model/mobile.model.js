@@ -10,6 +10,7 @@ const mobileShema=new mongoose.Schema({
     Description:{type:String,required:true},
     Price:{type:Number,required:true},
     quantity:{type:String,required:true},
+    productImage: {type: String, required: true},
     userUuid:{type:String,required:true}
 },{
     timestamps:true
