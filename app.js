@@ -11,7 +11,7 @@ const { baseModelName } = require('./model/user.model');
 const bodyParser=require('body-parser')
 const mobileSchema=require('./model/mobile.model')
 const port=process.env.port || 7000;
-
+const categorySchema=require('./model/category.model')
 const app=express();
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -28,15 +28,45 @@ app.get("/login",(req,res)=>{
     res.render("loginpage.ejs")
 })
 
- let ary = [{off:"50",name:"bala",desc:"aarifa",price:"10",img:"card4.png"},{off:"50",name:"bala",desc:"aarifa",price:"10",img:"card2.png"},{off:"50",name:"bala",desc:"aarifa",price:"10",img:"card3.png"},{off:"50",name:"bala",desc:"aarifa",price:"10",img:"card5.png"},{off:"50",name:"bala",desc:"aarifa",price:"10",img:"card7.png"},{off:"50",name:"bala",desc:"aarifa",price:"10",img:"card6.png"}] 
+//  let ary = [{off:"50",name:"bala",desc:"aarifa",price:"10",img:"card4.png"},{off:"50",name:"bala",desc:"aarifa",price:"10",img:"card2.png"},{off:"50",name:"bala",desc:"aarifa",price:"10",img:"card3.png"},{off:"50",name:"bala",desc:"aarifa",price:"10",img:"card5.png"},{off:"50",name:"bala",desc:"aarifa",price:"10",img:"card7.png"},{off:"50",name:"bala",desc:"aarifa",price:"10",img:"card6.png"}] 
+let productDetails={}
+ click=async (uuid)=>{
+   
+    productDetails =await  mobileSchema.find({categoryUuid:uuid}).exec();
+    console.log("details",uuid)
+}
 
-app.get("/",(req,res)=>{
-    
-    res.render("home.ejs",{ary})
+app.get("/",async(req,res)=>{
+    //  mobileSchema.find({},function(err,data){
+    //      res.render("home.ejs",{productList:data})
+    // })                                                    
+    //  productDetails =await  mobileSchema.find().exec();
+ 
+ let categoryDetails =await  categorySchema.find().exec();
+
+
+    res.render("home.ejs",{productDetails:productDetails,categoryDetails:categoryDetails,click:click})
 })
 
 
 
+//  app.get("/",(req,res)=>{
+//       mobileSchema.find({},function(err,productDetails){
+//           if(err){
+//             console.log(err);
+//           }else{
+//               categorySchema.find({},function(err,categoryDetails){
+//                   if(err){
+//                     console.log(err);
+//                   }
+//                   else{
+//                     res.render("home.ejs",{productDetails,categoryDetails})
+//                   }
+//                 })
+        
+//           }
+//  })
+// })
 mongoose.connect(process.env.dburl,{
     useNewUrlParser: true,
     useUnifiedTopology: true

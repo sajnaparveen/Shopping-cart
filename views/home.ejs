@@ -257,7 +257,7 @@ margin: auto;
    position: absolute;
    top: 50%;
    left: 50%;
-   transform: translateX(-50%, -50%);
+   transform: translate(-50%, -50%);
    text-align: center;
    color: #fff;
    font-size: 50px;
@@ -307,120 +307,46 @@ margin: auto;
     <button class="pre-btn"><img src="arrow.png" alt=""></button>
     <button class="nxt-btn"><img src="arrow.png" alt=""></button>
     <div class="product-container">
-<% for(let i=0;i<ary.length;i++) { %>
+<% for(let i=0;i<productDetails.length;i++) { %>
 
         <div class="product-card">
             <div class="product-image">
-                <span class="discount-tag"><%=ary[i].off %> off</span>
-                <img src=<%=ary[i].img %> class="product-thumb" alt="">
+                <span class="discount-tag"><%=productDetails[i].discound %> off</span>
+                <img src=<%=productDetails[i].productImage %> class="product-thumb" alt="">
                 <button class="card-btn">add to whislist</button>
             </div>
             <div class="product-info">
-                <h2 class="product-brand"><%=ary[i].name %></h2>
-                <p class="product-short-des"><%=ary[i].desc %></p>
-            <span class="price">Rs.5 </span>
-            <span class="actual-price">Rs.<%=ary[i].price %></span>
+                <h2 class="product-brand"><%=productDetails[i].productName %></h2>
+                <p class="product-short-des"><%=productDetails[i].Description %></p>
+            <span class="price">Rs.<%=productDetails[i].discoundPrice %> </span>
+            <span class="actual-price">Rs.<%=productDetails[i].Price %></span>
             </div>
         </div>
 <% } %> 
-        <!-- <div class="product-card">
-            <div class="product-image">
-                <span class="discount-tag">50% off</span>
-                <img src="card2.png" class="product-thumb" alt="">
-                <button class="card-btn">add to whislist</button>
-            </div>
-            <div class="product-info">
-                <h2 class="product-brand">Anouk</h2>
-                <p class="product-short-des">Women Navy Blue & Beige Printed Kurta with Palazzos</p>
-            <span class="price">Rs.300</span>
-            <span class="actual-price">Rs.600</span>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="product-image">
-                <span class="discount-tag">50% off</span>
-                <img src="card3.png" class="product-thumb" alt="">
-                <button class="card-btn">add to whislist</button>
-            </div>
-            <div class="product-info">
-                <h2 class="product-brand">Anouk</h2>
-                <p class="product-short-des">Women Blue Ethnic Motifs Printed Regular Pure Cotton Kurta with Palazzos </p>
-            <span class="price">Rs.500</span>
-            <span class="actual-price">Rs.1000</span>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-image">
-                <span class="discount-tag">50% off</span>
-                <img src="card4.png" class="product-thumb" alt="">
-                <button class="card-btn">add to whislist</button>
-            </div>
-            <div class="product-info">
-                <h2 class="product-brand">Anouk</h2>
-                <p class="product-short-des">Women Pink Ethnic Motifs Printed Regular Pure Cotton Kurta with Trousers</p>
-            <span class="price">Rs.400</span>
-            <span class="actual-price">Rs.800</span>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-image">
-                <span class="discount-tag">50% off</span>
-                <img src="card5.png" class="product-thumb" alt="">
-                <button class="card-btn">add to whislist</button>
-            </div>
-            <div class="product-info">
-                <h2 class="product-brand">Anouk</h2>
-                <p class="product-short-des">Women Navy Blue & Beige Printed Kurta with Palazzos</p>
-            <span class="price">Rs.300</span>
-            <span class="actual-price">Rs.600</span>
-            </div>
-    </div>
-
-    <div class="product-card">
-        <div class="product-image">
-            <span class="discount-tag">50% off</span>
-            <img src="card6.png" class="product-thumb" alt="">
-            <button class="card-btn">add to whislist</button>
-        </div>
-        <div class="product-info">
-            <h2 class="product-brand">Anouk</h2>
-            <p class="product-short-des">Women Navy Blue & Beige Printed Kurta with Palazzos</p>
-        <span class="price">Rs.300</span>
-        <span class="actual-price">Rs.600</span>
-        </div>
-</div>
-
-<div class="product-card">
-    <div class="product-image">
-        <span class="discount-tag">50% off</span>
-        <img src="card07.png" class="product-thumb" alt="">
-        <button class="card-btn">add to whislist</button>
-    </div>
-    <div class="product-info">
-        <h2 class="product-brand">Anouk</h2>
-        <p class="product-short-des">Women Navy Blue & Beige Printed Kurta with Palazzos</p>
-    <span class="price">Rs.300</span>
-    <span class="actual-price">Rs.600</span>
-    </div>
-</div> -->
+     
     </div>
 </section>
 
 <!-- collection -->
+
+
 <section class="collection-container">
-    <a href="#" class="collection">
-        <img src="women-collection.png" alt="">
-        <p class="collection-title">women<br>apparels</p>
-    </a>
-    <a href="#" class="collection">
-        <img src="men-collection.png" alt="">
-        <p class="collection-title">men<br>apparels</p>
-    </a>
-    <a href="#" class="collection">
-        <img src="accessories-collection.png" alt="">
-        <p class="collection-title">accessories</p>
-    </a>
+    <% for(let i=0;i<categoryDetails.length;i++) { %>
+    <!-- <a href="#" class="collection"> -->
+        <div class="collection">
+     
+              
+                
+            <button class = 'btn btn-primary' onclick = <%click(categoryDetails[i].uuid)%> >Click Me!</button>
+                
+              
+            <img src="<%=categoryDetails[i].categoryImage %>" onclick=<% click(categoryDetails[i].uuid) %> alt="" >
+            <p class="collection-title"><%=categoryDetails[i].categoryName %></p>
+        </div>
+        
+    <!-- </a> -->
+    <% } %> 
+  
     </section>
 </body>
 

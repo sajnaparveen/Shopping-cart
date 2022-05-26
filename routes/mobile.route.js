@@ -41,7 +41,7 @@ router.get("/get", async(req,res)=>{
 
 router.post('/addCategory', isAdmin, async(req,res)=>{
     try{
-        const data = new category(req.body);
+        const data = new categorySchema(req.body);
         const result = await data.save()
         return res.status(200).json({status: "success", message: 'category added successfully', result: result})
     }catch(error){

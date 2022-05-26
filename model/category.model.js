@@ -4,6 +4,7 @@ const crypto=require("crypto")
 const schema = new mongoose.Schema({
     uuid:{type: String, required: false},
     categoryName: {type: String, required: true, trim: true},
+    categoryImage: {type: String, required: true},
     userUuid: {type: String, required: true}
 
 },
