@@ -24,7 +24,11 @@ app.get("/signup",(req,res)=>{
     res.render("signup.ejs")
 
 })
+app.get("/news",(req,res)=>{
 
+    res.render("newspaper.ejs")
+
+})
 app.get("/login",(req,res)=>{
     res.render("loginpage.ejs")
 })
@@ -41,12 +45,12 @@ app.get("/",async(req,res)=>{
     //  mobileSchema.find({},function(err,data){
     //      res.render("home.ejs",{productList:data})
     // })                                                    
-    //  productDetails =await  mobileSchema.find().exec();
+    // productDetails =await  mobileSchema.find().exec();
  
  let categoryDetails =await  categorySchema.find().exec();
 
 
-    res.render("home.ejs",{productDetails:productDetails,categoryDetails:categoryDetails,click:click})
+    res.render("home.ejs",{productDetails:productDetails,categoryDetails:categoryDetails})
 })
 
 

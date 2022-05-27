@@ -337,10 +337,10 @@ margin: auto;
      
               
                 
-            <button class = 'btn btn-primary' onclick = <%click(categoryDetails[i].uuid)%> >Click Me!</button>
-                
+            <!-- <button class = 'btn btn-primary' onclick = "click('<%=categoryDetails[i].uuid%>')" >Click Me!</button> -->
+     
               
-            <img src="<%=categoryDetails[i].categoryImage %>" onclick=<% click(categoryDetails[i].uuid) %> alt="" >
+            <img src="<%=categoryDetails[i].categoryImage %>" onclick=<% click(categoryDetails[i].uuid) %> alt="" />
             <p class="collection-title"><%=categoryDetails[i].categoryName %></p>
         </div>
         
