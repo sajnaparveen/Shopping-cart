@@ -31,7 +31,7 @@ router.get("/get", async(req,res)=>{
         if(productDetails.length > 0){
             return res.status(200).json({'status': 'success', message: "Product details fetched successfully", 'result': productDetails});
         }else{
-            return res.status(404).json({'status': 'failure', message: "No Product details available"})
+            return res.status(404).json({'status': 'failure', message: "No Product details available",result:productDetails})
         }
     }catch(error){
         console.log(error.message);
@@ -39,6 +39,35 @@ router.get("/get", async(req,res)=>{
     }
 });
 
+// get individual product details
+router.get("/getIndiProd", authVerify, async(req,res)=>{
+    try {
+        const productDetails = await mobileShema.findOne({"uuid" : req.query.product_uuid}).exec();
+        if(productDetails){
+            return res.status(200).json({'status': 'success', message: "Product details fetched successfully", 'result': productDetails});
+        }else{
+            return res.status(404).json({'status': 'failure', message: "No Product details available"})
+        }
+    } catch (error) {
+        console.log(error.message);
+        return res.status(400).json({"status": 'failure', 'message': error.message})
+    }
+});
+
+
+router.get("/getcategory", async(req,res)=>{
+    try{
+        const productDetails = await categorySchema.find().exec();
+        if(productDetails.length > 0){
+            return res.status(200).json({'status': 'success', message: "Product details fetched successfully", 'result': productDetails});
+        }else{
+            return res.status(404).json({'status': 'failure', message: "No Product details available",result:productDetails})
+        }
+    }catch(error){
+        console.log(error.message);
+        return res.status(400).json({"status": 'failure', 'message': error.message})
+    }
+});
 router.post('/addCategory', isAdmin, async(req,res)=>{
     try{
         const data = new categorySchema(req.body);
@@ -72,6 +101,51 @@ router.delete("/delete/:product_uuid", isAdmin, async (req, res) => {
     }
 })
 
+
+
+router.get('/categoryBassedItem',async(req,res)=>{
+    try{
+        const details =  await categorySchema.aggregate([
+            {
+                $lookup:{
+                    from : 'products',
+                    localField : 'uuid',
+                    foreignField : 'categoryUuid',
+                    as:'product_details'
+                },      
+                
+            },
+            {
+                $lookup:{
+                    from:'users',
+                    localField:'userUuid',
+                    foreignField:'uuid',
+                    as:'user_deatils'
+                }
+            },
+            {
+                $project:{
+                    "_id":0,
+                    "userUuid":0,
+                    "createdAt":0,
+                    "updatedAt":0,
+                    "__v":0
+                }
+            },
+            {
+                $sort:{category:-1}
+            },
+        ])
+    if(details.length>0){
+        res.json.status(200)({status:'success',message:'category bassed all items fetched successfully!','result':details})
+    }else{
+        res.json.status(200)({status:'failure',message:"product details not available"})
+    }
+}catch(error){
+    console.log(error.message);
+    return res.status(500).json({"status": 'failure', 'message': error.message})
+}
+})
 router.get("/listingpage", async (req, res) => {
     try {
         let mobileDetails = await userschema.aggregate([
@@ -121,10 +195,11 @@ router.get("/listingpage", async (req, res) => {
 })
 
 router.get("/searchproduct/:key", async (req, res) => {
+    console.log(JSON.stringify( req.params.key))
     try {
         let data = await mobileShema.find({
             "$or": [
-                { productName: { $regex: req.params.key } }
+                { productName: { $regex: req.params.key, $options:"i"} }
             ]
         })
         // res.send(data)
@@ -232,4 +307,24 @@ router.post("/bulk-upload",upload.array('file',4), async(req,res)=>{
         return res.status(500).json({status: "failure", message: error.message}) 
     }
 })
+
+
+router.get('/get-product',async(req,res)=>{
+    try{
+        console.log("gvuyyu",req.query)
+        const cat_id = req.query.cat_id
+        const items = await mobileShema.find({categoryUuid:cat_id}).exec()
+        console.log(items)
+        if(items.length !== 0){
+            console.log("success");
+            res.json({status:"success",'result':items})
+        }else{
+            res.json({status:'failure',message:'This product not avalible!'})
+        }
+
+    }catch(err){
+        res.json({"error":err.message})
+    }
+})
+
 module.exports = router;

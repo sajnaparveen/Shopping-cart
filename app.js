@@ -87,6 +87,11 @@ app.use('/api/v1/user',userRouter);
 app.use('/api/v2/mobile',mobileRouter);
 app.use('/api/v3/cart',cartRouter);
 
+// axios.get("http://localhost:7000/api/v2/mobile/get").then(resp =>{
+//     console.log(resp.data);
+// }).catch(error=>{
+//     console.log(error)
+// })
 
 
 

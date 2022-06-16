@@ -30,7 +30,7 @@ router.post('/signupPage', async (req, res) => {
           }
         };
      
-        if (firstName && lastName && userName && password && email && mobileNumber) {
+        if ( userName && password && email && mobileNumber) {
 
             let userdetails = await userSchema.findOne({ userName: userName }).exec();
             let emailid = await userSchema.findOne({ email: email }).exec();
@@ -156,16 +156,16 @@ router.post("/loginpage", async (req, res) => {
                   { uuid: userdetails.uuid },
                   { loginStatus: true },
                   { new: true }
-                )
+                ) 
                 .exec();
               return res.status(200).json({
                 status: "success",
                 message: "Login successfully",
-                data: { userdetails, jwttoken },
+                data:userdetails ,
               });
             } else {
               return res
-                .status(200)
+                .status(500)
                 .json({ status: "failure", message: "Login failed" });
             }
           }
@@ -176,7 +176,7 @@ router.post("/loginpage", async (req, res) => {
         return res.status(500).json({ status: "failure", message: error.message });
       }
     });
-
+  
 router.post("/logoutpage",async(req,res)=>{
     try {
         await userSchema
